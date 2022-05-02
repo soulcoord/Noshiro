@@ -21,6 +21,7 @@ class wife(Cog_Extension):
       embed.set_image(url=ca['赤城'])
       await ctx.send(embed=embed)
 
+
     elif ctx.author.id==(644925303583670299):
       embed=discord.Embed(title=('獨角獸'), url=lane['獨角獸'],timestamp=datetime.datetime.now())
       embed.add_field(name="海事局連結", value=lane['獨角獸'], inline=False)
@@ -53,7 +54,15 @@ class wife(Cog_Extension):
       embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/oauth2/authorize?client_id=886827609005129799&scope=bot&permissions=8", inline=False)
       embed.set_image(url=ca['天城'])
       await ctx.send(embed=embed)
-      
+  
+  @commands.command()
+  async def 我女兒(self,ctx):
+    if ctx.author.id==(638726129846452225):
+      embed=discord.Embed(title=('小赤城'), url=lane['小赤城'],timestamp=datetime.datetime.now())
+      embed.add_field(name="海事局連結", value=lane['小赤城'], inline=False)
+      embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/oauth2/authorize?client_id=886827609005129799&scope=bot&permissions=8", inline=False)
+      embed.set_image(url=ca['小赤城'])
+      await ctx.send(embed=embed)    
 
 
 

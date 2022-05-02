@@ -8,9 +8,9 @@ authors = ["Your Name <you@example.com>"]
 python = "^3.8"
 "discord.py" = "^1.7.3"
 Flask = "^2.0.2"
-utils = "^1.0.1"
-discord-components = "^2.1.2"
 discord-py-slash-command = "^3.0.1"
+discord-components = "^2.1.2"
+easy-pil = "^0.1.5"
 
 [tool.poetry.dev-dependencies]
 
