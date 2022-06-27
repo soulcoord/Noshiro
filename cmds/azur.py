@@ -14,8 +14,8 @@ from discord_components import (
     ButtonStyle,
     Select,
     SelectOption,
-    Interaction,
-)
+    Interaction)
+import asyncio
 
 with open("azur.json",'r',encoding='utf8')as azurs:
   lane=json.load(azurs)
@@ -51,6 +51,17 @@ class azur(Cog_Extension):
   @commands.command()
   async def girl(self,ctx,boat):
     pronoun=alias[boat]
+    tmp1 = jdata[pronoun][1].split("→")
+    tmp2 = jdata[pronoun][3].split("→")
+    tmp3 = jdata[pronoun][5].split("→")
+    tmp5 = jdata[pronoun][9].split("→")
+    tmp6 = jdata[pronoun][11].split("→")
+    tmp7 = jdata[pronoun][13].split("→")
+    tmp8 = jdata[pronoun][15].split("→")
+    tmp9 = jdata[pronoun][17].split("→")
+    get=azur_le['獲得'][pronoun]
+    full=azur_le['滿星'][pronoun]
+    lv120=azur_le['Lv.120'][pronoun]
 
 
     if (pronoun in ce1) and (pronoun in azur_le['解鎖']):
@@ -58,12 +69,16 @@ class azur(Cog_Extension):
       embed.add_field(name='艦種',value=azur_le['艦種'][pronoun], inline=True )
       embed.add_field(name='陣營',value=azur_le['陣營'][pronoun], inline=True )
       
-      embed.add_field(name="科研點", value=f"●獲得：{str(azur_le['獲得'][pronoun])}●滿星：{str(azur_le['滿星'][pronoun])}●LV.120：{str(azur_le['Lv.120'][pronoun])}●總和：{str(azur_le['合計'][pronoun])}", inline=False)
+      embed.add_field(name="科研點", value=f"●獲得：{str(azur_le['獲得'][pronoun])}●滿星：{str(azur_le['滿星'][pronoun])}●LV.120：{str(azur_le['Lv.120'][pronoun])}●總和：{str(get+full+lv120)}", inline=False)
       
       embed.add_field(name="科研屬性加成", value=f"●獲得：{str(azur_le['解鎖'][pronoun])}●LV.120：{str(azur_le['120級(屬性加成)'][pronoun])}", inline=False)
+      if len(tmp1)==2:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[1]}●防空：{tmp3[1]}●雷擊：{tmp5[1]}●航空：{tmp6[1]}●裝填：{tmp7[1]}●機動：{tmp8[1]}●命中：{tmp9[1]}", inline=False)
+      if len(tmp1)==1:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[0]}●防空：{tmp3[0]}●雷擊：{tmp5[0]}●航空：{tmp6[0]}●裝填：{tmp7[0]}●機動：{tmp8[0]}●命中：{tmp9[0]}", inline=False)
       
-      embed.add_field(name="海事局連結", value=lane[pronoun], inline=False)
-      embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands", inline=False)
+      embed.add_field(name="海事局連結", value=f'[{pronoun}]({lane[pronoun]})', inline=False)
+      embed.add_field(name="邀請機器人加入你的群組", value="[點擊這裡加入](https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands)", inline=False)
       embed.add_field(name="評價", value=ce1[pronoun], inline=False)
       embed.set_image(url=ca[pronoun])
       embed.set_footer(text="資料來源：碧藍航線WIKI_碧藍海事局")
@@ -71,9 +86,13 @@ class azur(Cog_Extension):
       await ctx.message.delete()
     elif (pronoun in ce1) and (pronoun not in azur_le['解鎖']):
       embed=discord.Embed(title=(pronoun), url=lane[pronoun],timestamp=datetime.datetime.now())
+      if len(tmp1)==2:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[1]}●防空：{tmp3[1]}●雷擊：{tmp5[1]}●航空：{tmp6[1]}●裝填：{tmp7[1]}●機動：{tmp8[1]}●命中：{tmp9[1]}", inline=False)
+      if len(tmp1)==1:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[0]}●防空：{tmp3[0]}●雷擊：{tmp5[0]}●航空：{tmp6[0]}●裝填：{tmp7[0]}●機動：{tmp8[0]}●命中：{tmp9[0]}", inline=False)
       
-      embed.add_field(name="海事局連結", value=lane[pronoun], inline=False)
-      embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands", inline=False)
+      embed.add_field(name="海事局連結", value=f'[{pronoun}]({lane[pronoun]})', inline=False)
+      embed.add_field(name="邀請機器人加入你的群組", value="[點擊這裡加入](https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands)", inline=False)
       embed.add_field(name="評價", value=ce1[pronoun], inline=False)
       embed.set_image(url=ca[pronoun])
       embed.set_footer(text="資料來源：碧藍航線WIKI_碧藍海事局")
@@ -81,8 +100,8 @@ class azur(Cog_Extension):
     elif (pronoun not in ce1) and (pronoun not in azur_le['解鎖']):
       embed=discord.Embed(title=(pronoun), url=lane[pronoun],timestamp=datetime.datetime.now())
       
-      embed.add_field(name="海事局連結", value=lane[pronoun], inline=False)
-      embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands", inline=False)
+      embed.add_field(name="海事局連結", value=f'[{pronoun}]({lane[pronoun]})', inline=False)
+      embed.add_field(name="邀請機器人加入你的群組", value="[點擊這裡加入](https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands)", inline=False)
       embed.set_image(url=ca[pronoun])
       embed.set_footer(text="資料來源：碧藍航線WIKI_碧藍海事局")
       await ctx.send(embed=embed)
@@ -91,12 +110,16 @@ class azur(Cog_Extension):
       embed.add_field(name='艦種',value=azur_le['艦種'][pronoun], inline=True )
       embed.add_field(name='陣營',value=azur_le['陣營'][pronoun], inline=True )
       
-      embed.add_field(name="科研點", value=f"●獲得：{str(azur_le['獲得'][pronoun])}●滿星：{str(azur_le['滿星'][pronoun])}●LV.120：{str(azur_le['Lv.120'][pronoun])}●總和：{str(azur_le['合計'][pronoun])}", inline=False)
+      embed.add_field(name="科研點", value=f"●獲得：{str(azur_le['獲得'][pronoun])}●滿星：{str(azur_le['滿星'][pronoun])}●LV.120：{str(azur_le['Lv.120'][pronoun])}●總和：{str(get+full+lv120)}", inline=False)
       
       embed.add_field(name="科研屬性加成", value=f"●獲得：{str(azur_le['解鎖'][pronoun])}●LV.120：{str(azur_le['120級(屬性加成)'][pronoun])}", inline=False)
+      if len(tmp1)==2:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[1]}●防空：{tmp3[1]}●雷擊：{tmp5[1]}●航空：{tmp6[1]}●裝填：{tmp7[1]}●機動：{tmp8[1]}●命中：{tmp9[1]}", inline=False)
+      if len(tmp1)==1:
+        embed.add_field(name="數值(好感度：愛 等級：125)", value=f"●砲擊：{tmp2[0]}●防空：{tmp3[0]}●雷擊：{tmp5[0]}●航空：{tmp6[0]}●裝填：{tmp7[0]}●機動：{tmp8[0]}●命中：{tmp9[0]}", inline=False)
       
-      embed.add_field(name="海事局連結", value=lane[pronoun], inline=False)
-      embed.add_field(name="邀請機器人加入你的群組", value="https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands", inline=False)
+      embed.add_field(name="海事局連結", value=f'[{pronoun}]({lane[pronoun]})', inline=False)
+      embed.add_field(name="邀請機器人加入你的群組", value="[點擊這裡加入](https://discord.com/api/oauth2/authorize?client_id=886827609005129799&permissions=8&scope=bot%20applications.commands)", inline=False)
       embed.set_image(url=ca[pronoun])
       embed.set_footer(text="資料來源：碧藍航線WIKI_碧藍海事局")
       await ctx.send(embed=embed)
@@ -131,150 +154,6 @@ class azur(Cog_Extension):
   async def 數值(self,ctx,boat):
     if boat == str('女帝天尊'):
       await ctx.send("女帝天尊\n砲擊|=========  無限\n防空|=========  無限\n雷擊|=========  無限\n航空|=========  無限\n裝填|=========  無限\n機動|=                       69\n命中|=========  無限")
-    polic=alias[boat]
-    tmp1 = jdata[polic][1].split("→")
-    tmp2 = jdata[polic][3].split("→")
-    tmp3 = jdata[polic][5].split("→")
-    tmp5 = jdata[polic][9].split("→")
-    tmp6 = jdata[polic][11].split("→")
-    tmp7 = jdata[polic][13].split("→")
-    tmp8 = jdata[polic][15].split("→")
-    tmp9 = jdata[polic][17].split("→")
-
-    if len(tmp1)==2: 
-      bar_color= "#ff9933"
-      profile = await load_image_async(str(ca[boat]))
-      profile = Editor(profile).resize((231, 273))
-      poppins = Font.poppins(size=24)  
-      text_color='#000000'
-      bar_color = "#ff9933"
-      background = Editor("image0.jpg")
-      background.paste(profile.image, (0, 0))
-      background.bar(
-          (177, 305),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp2[1])/4.37),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 523),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp3[1])/5.68),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 723),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp5[1])/6.09),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 937),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp6[1])/4.62),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1143),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp7[1])/2.34),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1357),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp8[1])/3.15),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1573),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp9[1])/2.35),
-          fill=bar_color,
-      )    
-      background.text((1435, 305), str(tmp2[1]), font=poppins, color=text_color)
-      background.text((1435, 523), str(tmp3[1]), font=poppins, color=text_color)
-      background.text((1435, 723), str(tmp5[1]), font=poppins, color=text_color)
-      background.text((1435, 937), str(tmp6[1]), font=poppins, color=text_color)
-      background.text((1435, 1143), str(tmp7[1]), font=poppins, color=text_color)
-      background.text((1435, 1357), str(tmp8[1]), font=poppins, color=text_color)
-      background.text((1435, 1573), str(tmp9[1]), font=poppins, color=text_color)
-      card = File(fp=background.image_bytes, filename="image.png")
-      await ctx.send(file=card)
-    if len(tmp1)==1:
-      bar_color= "#ff9933"
-      profile = await load_image_async(str(ca[boat]))
-      profile = Editor(profile).resize((231, 273))
-      poppins = Font.poppins(size=24)  
-      text_color='#000000'
-      bar_color = "#ff9933"
-      background = Editor("image0.jpg")
-      background.paste(profile.image, (0, 0))
-      background.bar(
-          (177, 305),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp2[0])/4.37),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 523),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp3[0])/5.68),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 723),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp5[0])/6.09),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 937),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp6[0])/4.62),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1143),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp7[0])/2.34),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1357),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp8[0])/3.15),
-          fill=bar_color,
-      )
-      background.bar(
-          (177, 1573),
-          max_width=731,
-          height=47,
-          percentage=(int(tmp9[0])/2.35),
-          fill=bar_color,
-      )    
-      background.text((1435, 305), str(tmp2[0]), font=poppins, color=text_color)
-      background.text((1435, 523), str(tmp3[0]), font=poppins, color=text_color)
-      background.text((1435, 723), str(tmp5[0]), font=poppins, color=text_color)
-      background.text((1435, 937), str(tmp6[0]), font=poppins, color=text_color)
-      background.text((1435, 1143), str(tmp7[0]), font=poppins, color=text_color)
-      background.text((1435, 1357), str(tmp8[0]), font=poppins, color=text_color)
-      background.text((1435, 1573), str(tmp9[0]), font=poppins, color=text_color)
-      card = File(fp=background.image_bytes, filename="image.png")
-      await ctx.send(file=card)
 
   @cog_ext.cog_slash(name="科研屬性加成",
   description="科研屬性加成艦船查詢",
@@ -367,25 +246,71 @@ class azur(Cog_Extension):
 
 
 
-  async def _科研屬性加成(self,ctx,艦種,屬性):
-    embed3=discord.Embed(title='科研屬性查詢', url='https://wiki.biligame.com/blhx/%E8%88%B0%E9%98%9F%E7%A7%91%E6%8A%80',timestamp=datetime.datetime.now())
+  async def 科研屬性加成(self,ctx,艦種,屬性):
+    af={}
+    i=0
+    alen=0
+    acon=1
+    embed=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed1=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed2=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed3=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed4=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed5=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    embed6=discord.Embed(title='科研屬性查詢',timestamp=datetime.datetime.now())
+    aembed=[embed,embed1,embed2,embed3,embed4,embed5,embed6]
     for key, value in azur_le['艦種'].items():
       value1=azur_le['120級(屬性加成)'][key]
       value2=azur_le['解鎖'][key]
       if 屬性 in value1 and 屬性 not in value2 and 艦種 in value1:
-
-        embed3.add_field(name=key, value=f"120等時獲得：{value1}", inline=False)
+        af[key]=(f"120等時獲得：{value1}")
       elif 屬性 not in value1 and 屬性 in value2 and 艦種 in value2:
-
-        embed3.add_field(name=key, value=f"解鎖時時獲得：{value2}", inline=False)
+        af[key]=(f"解鎖時時獲得：{value2}")
       elif 屬性 in value1 and 屬性 in value2 and 艦種 in value1 and 艦種 in value2:
+        af[key]=(f"解鎖時時獲得：{value2}|120等時獲得：{value1}")
+    for key1, value1 in af.items():
+      i+=1
+      if i >= (25):
+        i=0
+        alen+=1
+        acon+=1
+        aembed[alen].add_field(name=key1,value=value1, inline=True)
+      else:
+        aembed[alen].add_field(name=key1,value=value1, inline=True)
+    for ae in range(alen+1):
+      aembed[ae].set_image(url="https://images-ext-2.discordapp.net/external/3MYCLFJvgmDzFtPXiDGrhaWViPkod1_97-sLPfwoeKU/https/c-ssl.duitang.com/uploads/item/202003/06/20200306130447_mfesu.thumb.1000_0.gif")
 
-        embed3.add_field(name=key, value=f"解鎖時時獲得：{value2}|120等時獲得：{value1}", inline=False)
-      elif 屬性 not in value1 and 屬性 not in value2 and 艦種 not in value1 and 艦種 not in value2:
-        embed3.set_image(url='https://c-ssl.duitang.com/uploads/item/202003/06/20200306130447_mfesu.thumb.1000_0.gif')
-    embed3.set_footer(text="資料來源：碧藍航線WIKI_碧藍海事局")
+    contents = aembed
+    pages = acon
+    cur_page = 1
+    message1=await ctx.send('未有人使用，此訊息將會在60秒後刪除')
+    message = await ctx.send(embed= aembed[cur_page-1])
+    await message.add_reaction("◀️")
+    await message.add_reaction("▶️")
 
-    await ctx.send(embed=embed3)
+    def check(reaction, user):
+        return user == ctx.author and str(reaction.emoji) in ["◀️", "▶️"]
+
+    while True:
+        try:
+            reaction, user = await self.bot.wait_for("reaction_add", timeout=60 ,check=check)
+
+            if str(reaction.emoji) == "▶️" and cur_page != pages:
+                cur_page += 1
+                await message.edit(embed=contents[cur_page-1])
+                await message.remove_reaction(reaction, user)
+
+            elif str(reaction.emoji) == "◀️" and cur_page > 1:
+                cur_page -= 1
+                await message.edit(embed=contents[cur_page-1])
+                await message.remove_reaction(reaction, user)
+
+            else:
+                await message.remove_reaction(reaction, user)
+        except asyncio.TimeoutError:      
+            await message.delete()
+            await message1.delete()
+            break
 
   
 

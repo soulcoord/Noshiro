@@ -7,16 +7,9 @@ from discord.ext import commands
 from discord_slash.utils.manage_commands import create_choice,create_option
 import asyncio
 import random
-from easy_pil import Editor, load_image_async, Font
 import datetime
-from discord_components import (
-    DiscordComponents,
-    Button,
-    ButtonStyle,
-    Select,
-    SelectOption,
-    Interaction
-)
+
+
 
 
 intents = discord.Intents.all()
@@ -93,18 +86,17 @@ class test(Cog_Extension):
 
 
   async def _help(self,ctx):
-    embed1=discord.Embed(title="關於碧藍航線的指令",color=0xa3d3ff)
+    embed1=discord.Embed(title="能代姊姊的指令說明**()裡是參數說明**",color=0xa3d3ff)
     embed1.add_field(name="> 查詢艦船", value="$girl (艦船名稱)", inline=False)
     embed1.add_field(name="> 查詢科研", value="$科研", inline=False)
     embed1.add_field(name="> 查詢所需經驗", value="$level (目前的等級) (目標等級) (目前經驗)", inline=False)
-    embed1.add_field(name="> 活動", value="$活動", inline=False)
-    embed1.add_field(name="> 數值", value="$數值 (艦船名稱)", inline=False)
     embed1.add_field(name="> 別名(舉例：海王星砲)", value="$別名 海王星砲", inline=False)
+    embed1.add_field(name="> 跨群聊天", value="$設置跨群聊天 (要設置的頻道ID) \n $移除跨群聊天", inline=False)
+    embed1.add_field(name="> 大世界", value="$大世界", inline=False)
     
     await ctx.send(embed=embed1)
 
 
-      
 
 def setup(bot):
   bot.add_cog(test(bot))      

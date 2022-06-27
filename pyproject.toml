@@ -6,11 +6,12 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-"discord.py" = "^1.7.3"
 Flask = "^2.0.2"
 discord-py-slash-command = "^3.0.1"
 discord-components = "^2.1.2"
 easy-pil = "^0.1.5"
+"discord.py" = "^1.7.3"
+discord = "^1.7.3"
 
 [tool.poetry.dev-dependencies]
 

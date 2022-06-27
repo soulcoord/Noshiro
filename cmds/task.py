@@ -17,8 +17,10 @@ with open("azur_lane.json",'r',encoding='utf8')as azur_p:
   ca=json.load(azur_p)
 
 class task(Cog_Extension):
-  pass
-    
+
+  @commands.command()
+  async def geturl(self,ctx, emoji: discord.Emoji):
+      await ctx.send(emoji.url)
 
 def setup(bot):
     bot.add_cog(task(bot))

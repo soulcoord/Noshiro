@@ -12,6 +12,10 @@ class event(Cog_Extension):
     async def on_message(self,msg):
         if msg.author.id == 891180967077744640:
           await msg.add_reaction('<:emoji_47:961259195531943947>')
+        if msg.author.id == 802541006141784074:
+          await msg.add_reaction('<:emoji_50:961254585400459354>')
+        if msg.author.id == 747442372048060548:
+          await msg.add_reaction('<:emoji_ha:974259632174399548>')
 
         if '婆' in (msg.content)  and msg.author.id==366574612449853460:
             await msg.add_reaction('<:image0_5:892414761382314025>')

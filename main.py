@@ -1,9 +1,8 @@
- #導入Discord.py
+#導入Discord.py
 import discord
 import json
 import os
 import keep_alive
-from discord import Embed
 from discord.ext import commands
 from discord_slash import SlashCommand, SlashContext
 from discord_slash.utils.manage_commands import create_choice, create_option
@@ -27,8 +26,12 @@ bot.remove_command('help')
 @bot.event
 #當機器人完成啟動時
 async def on_ready():
-  print(bot.user)
-  await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name=f"{len(bot.guilds)} 正在冰我"))
+    print(bot.user)
+    await bot.change_presence(activity=discord.Activity(
+        type=discord.ActivityType.watching, name=f"{len(bot.guilds)} 正在冰我"))
+
+
+bot.application_info()
 
 
 @commands.is_owner()
@@ -45,7 +48,6 @@ async def unload(ctx, extension):
     await ctx.send(f'導出{extension}成功')
 
 
-
 @commands.is_owner()
 @bot.command()
 async def reload(ctx, extension):
@@ -60,4 +62,4 @@ for filename in os.listdir('./cmds'):
 if __name__ == "__main__":
 
     keep_alive.keep_alive()
-    bot.run('ODg2ODI3NjA5MDA1MTI5Nzk5.YT7Qkg.Q-MKr-afNQa_V76NlOk67PlgmM0')
+    bot.run('ODg2ODI3NjA5MDA1MTI5Nzk5.GkbE1-.lPyGeQ_W-tOmCVyJWbrhDBefkcWsyzrwIOtyGo')
